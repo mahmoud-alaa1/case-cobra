@@ -1,5 +1,5 @@
 "use client";
-import { toast, useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 import { Progress } from "@/components/ui/progress";
 import { useUploadThing } from "@/lib/uploadthing";
@@ -39,7 +39,6 @@ export default function Page() {
       title: `${file.file.type} type is not supported.`,
       description: "Please choose a PNG, JPG, or JPEG file.",
       variant: "destructive",
-      
     });
   };
 
