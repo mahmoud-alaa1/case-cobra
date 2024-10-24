@@ -35,6 +35,7 @@ export default function Page() {
     const [file] = rejectedFiles;
 
     setIsDragOver(false);
+    
     toast({
       title: `${file.file.type} type is not supported.`,
       description: "Please choose a PNG, JPG, or JPEG file.",
