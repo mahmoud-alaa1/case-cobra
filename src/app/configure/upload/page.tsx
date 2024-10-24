@@ -1,4 +1,5 @@
 "use client";
+import { toast, useToast } from "@/hooks/use-toast";
 
 import { Progress } from "@/components/ui/progress";
 import { useUploadThing } from "@/lib/uploadthing";
@@ -8,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 export default function Page() {
+  const { toast } = useToast();
+
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
   const [isPending, startTransition] = useTransition();
@@ -32,6 +35,12 @@ export default function Page() {
     const [file] = rejectedFiles;
 
     setIsDragOver(false);
+    toast({
+      title: `${file.file.type} type is not supported.`,
+      description: "Please choose a PNG, JPG, or JPEG file.",
+      variant: "destructive",
+      
+    });
   };
 
   const onDropAccepted = (acceptedFiles: File[]) => {
