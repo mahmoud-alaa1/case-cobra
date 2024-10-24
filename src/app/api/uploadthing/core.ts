@@ -11,6 +11,8 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       const { configId } = metadata.input;
+      const res = await fetch(file.url);
+   
       return { configId };
     }),
 } satisfies FileRouter;
