@@ -22,8 +22,8 @@ export default async function Navbar() {
                   Sign out
                 </Link>
                 {isAdmin ? (
-                  <Link href="/api/auth/logout" className={buttonVariants({ size: "sm", variant: "ghost" })}>
-                    Dashboard
+                  <Link href="/dashboard" className={buttonVariants({ size: "sm", variant: "ghost" })}>
+                    Dashboard ✨
                   </Link>
                 ) : null}
                 <Link
