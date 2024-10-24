@@ -17,6 +17,8 @@ import Image, { StaticImageData } from "next/image";
 const PHONES = [phone1, phone2, phone3, phone4, phone5, phone6];
 
 function splitArray<T>(array: Array<T>, numParts: number) {
+  //helper function to split an array into a numParts rows
+
   const result: Array<Array<T>> = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -83,7 +85,10 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
 
   return (
     <div
-      className={cn("animate-fade-in rounded-[2.25rem] bg-white p-6 opacity-0 shadow-xl shadow-slate-900/5", className)}
+      className={cn(
+        "animate-fade-in rounded-[2.25rem] bg-white p-4  opacity-0 shadow-xl shadow-slate-900/5",
+        className
+      )}
       style={{ animationDelay }}
       {...props}
     >
@@ -99,19 +104,18 @@ function ReviewGrid() {
   const column1 = columns[0];
   const column2 = columns[1];
   const column3 = splitArray(columns[2], 2);
-
   return (
     <div
       ref={containerRef}
-      className="relative -mx-4 mt-16 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden px-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3"
+      className="relative -mx-4 mt-16 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden px-4 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3"
     >
       {isInView ? (
         <>
           <ReviewColumn
             reviews={[...column1, ...column3.flat(), ...column2]}
             reviewClassName={(reviewIndex) =>
-              cn({
-                "md:hidden": reviewIndex >= column1.length + column3[0].length,
+              cn("max-w-80 mx-auto", {
+                "sm:hidden": reviewIndex >= column1.length + column3[0].length,
                 "lg:hidden": reviewIndex >= column1.length,
               })
             }
@@ -119,15 +123,15 @@ function ReviewGrid() {
           />
           <ReviewColumn
             reviews={[...column2, ...column3[1]]}
-            className="hidden md:block"
+            className="max-w-80 hidden sm:block mx-auto"
             reviewClassName={(reviewIndex) => (reviewIndex >= column2.length ? "lg:hidden" : "")}
             msPerPixel={7}
           />
-          <ReviewColumn reviews={column3.flat()} className="hidden md:block" msPerPixel={4} />
+          <ReviewColumn reviews={column3.flat()} className="max-w-80 mx-auto hidden sm:block" msPerPixel={4} />
         </>
       ) : null}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-100" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-100" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-slate-100" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-slate-100" />
     </div>
   );
 }
@@ -139,7 +143,7 @@ export default function Reviews() {
         aria-hidden="true"
         src={whatPeopleAreBuying}
         className="absolute select-none hidden xl:block -left-32 top-1/3"
-        alt="people buying"
+        alt="What people are buying"
       />
 
       <ReviewGrid />

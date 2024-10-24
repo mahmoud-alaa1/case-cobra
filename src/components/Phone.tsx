@@ -17,7 +17,7 @@ export default function Phone({ ImageSrc, dark = false, className, ...props }: P
         alt="phone image"
       />
       <div className="absolute -z-10 inset-0">
-        <Image className="object-cover" src={ImageSrc} alt="overlaying phone image" />
+        <Image className="object-cover pointer-events-none" src={ImageSrc} alt="overlaying phone image" />
       </div>
     </div>
   );
