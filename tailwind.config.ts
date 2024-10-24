@@ -67,6 +67,7 @@ const config: Config = {
           },
         },
         marquee: {
+
           "100%": {
             transform: "translateY(-50%)",
           },
