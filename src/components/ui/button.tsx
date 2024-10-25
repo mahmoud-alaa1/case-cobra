@@ -63,9 +63,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading && loadingText ? loadingText : props.children}
-        {isLoading ? (<span className="ml-1.5 flex items-center gap-1">
-          <span className="animate-flashing"></span>
-        </span>): null}
+        {isLoading ? (
+          <span className="ml-1.5 flex items-center gap-1">
+            <span className="animate-flashing size-1 bg-white rounded-full inli" />
+            <span className="animate-flashing size-1 delay-100 bg-white rounded-full inli" />
+            <span className="animate-flashing size-1 delay-200 bg-white rounded-full inli" />
+          </span>
+        ) : null}
       </Comp>
     );
   }

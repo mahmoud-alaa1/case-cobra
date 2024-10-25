@@ -35,7 +35,7 @@ export default function Page() {
     const [file] = rejectedFiles;
 
     setIsDragOver(false);
-    
+
     toast({
       title: `${file.file.type} type is not supported.`,
       description: "Please choose a PNG, JPG, or JPEG file.",
@@ -75,7 +75,7 @@ export default function Page() {
               className="cursor-pointer h-full w-full flex-1 flex flex-col items-center justify-center"
               {...getRootProps()}
             >
-              <input {...getInputProps()} />
+              <input disabled={isUploading} {...getInputProps()} />
               {isDragOver ? (
                 <MousePointerSquareDashed className="h-6 w-6 text-zinc-500 mb-2" />
               ) : isUploading || isPending ? (
@@ -88,7 +88,10 @@ export default function Page() {
                 {isUploading ? (
                   <div className="flex flex-col items-center">
                     <p>Uploading...</p>
-                    <Progress value={uploadProgress} className="mt-2 w-40 h-2 bg-gray-300" />
+                    <Progress
+                      value={uploadProgress}
+                      className="mt-2 w-40 h-2 bg-gray-300"
+                    />
                   </div>
                 ) : isPending ? (
                   <div className="flex flex-col items-center">
@@ -100,11 +103,14 @@ export default function Page() {
                   </p>
                 ) : (
                   <p>
-                    <span className="font-semibold">Click to upload </span> or drag and drop.
+                    <span className="font-semibold">Click to upload </span> or
+                    drag and drop.
                   </p>
                 )}
               </div>
-              {isPending ? null : <p className="text-xs text-zinc-500">PNG, JPG, JPEG</p>}
+              {isPending ? null : (
+                <p className="text-xs text-zinc-500">PNG, JPG, JPEG</p>
+              )}
             </div>
           )}
         </Dropzone>

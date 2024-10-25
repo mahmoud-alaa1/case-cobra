@@ -378,6 +378,9 @@ export default function DesignConfigurator({
                 )}
               </p>
               <Button
+                disabled={isUploading}
+                isLoading={isUploading}
+                loadingText="Saving"
                 onClick={() =>
                   saveConfig({
                     configId,
