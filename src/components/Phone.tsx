@@ -8,16 +8,32 @@ interface PhoneProps extends HTMLAttributes<HTMLDivElement> {
   dark?: boolean;
 }
 
-export default function Phone({ ImageSrc, dark = false, className, ...props }: PhoneProps) {
+export default function Phone({
+  ImageSrc,
+  dark = false,
+  className,
+  ...props
+}: PhoneProps) {
   return (
-    <div className={cn("relative pointer-events-none z-50 overflow-hidden", className)} {...props}>
+    <div
+      className={cn(
+        "relative pointer-events-none z-50 overflow-hidden",
+        className
+      )}
+      {...props}
+    >
       <Image
         src={dark ? phoneTemplateDarkEdges : phoneTemplateWhiteEdges}
         className="pointer-events-none z-50 select-none"
         alt="phone image"
       />
       <div className="absolute -z-10 inset-0">
-        <Image className="object-cover pointer-events-none" src={ImageSrc} alt="overlaying phone image" />
+        <Image
+          fill
+          className="object-cover pointer-events-none min-w-full min-h-full"
+          src={ImageSrc}
+          alt="overlaying phone image"
+        />
       </div>
     </div>
   );
