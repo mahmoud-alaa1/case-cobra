@@ -13,9 +13,17 @@ import { cn } from "@/lib/utils";
 import NextImage from "next/image";
 
 import { Label } from "@/components/ui/label";
-import { COLORS } from "@/validators/option-validator";
+import { COLORS, MODELS } from "@/validators/option-validator";
 import { useState } from "react";
 import { Rnd } from "react-rnd";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -24,8 +32,9 @@ interface DesignConfiguratorProps {
 }
 
 export default function DesignConfigurator({ configId, imageUrl, imageDimensions }: DesignConfiguratorProps) {
-  const [options, setOptions] = useState<{ color: (typeof COLORS)[number] }>({
+  const [options, setOptions] = useState<{ color: (typeof COLORS)[number]; model: (typeof MODELS.options)[number] }>({
     color: COLORS[0],
+    model: MODELS.options[0],
   });
 
   return (
@@ -121,6 +130,36 @@ export default function DesignConfigurator({ configId, imageUrl, imageDimensions
                 </RadioGroup>
                 <div className="relative flex flex-col gap-3 w-full">
                   <Label>Model</Label>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" role="combobox" className="w-full justify-between">
+                        {options.model.label}
+                        <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      {MODELS.options.map((model) => (
+                        <DropdownMenuItem
+                          key={model.label}
+                          className={cn(
+                            "flex text-sm gap-1 items-center p-1.5 cursor-default hover:bg-zinc-100 transition",
+                            {
+                              "bg-zinc-100": model.value === options.model.value,
+                            }
+                          )}
+                          onClick={() => setOptions((prev) => ({ ...prev, model }))}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 size-4",
+                              model.label === options.model.label ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          {model.label}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </div>
             </div>
