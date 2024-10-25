@@ -10,4 +10,6 @@ export const formatPrice = (price: number) => {
     style: "currency",
     currency: "USD",
   });
+
+  return formatter.format(price);
 };

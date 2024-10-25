@@ -8,7 +8,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 
 import NextImage from "next/image";
 
@@ -23,7 +23,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ArrowRight, Check, ChevronsUpDown } from "lucide-react";
+import { format } from "path";
+import { BASE_PRICE } from "@/config/products";
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -207,7 +209,7 @@ export default function DesignConfigurator({ configId, imageUrl, imageDimensions
                             as="span"
                             className="mt-2 flex text-sm sm:ml-4 sm:mt-0 sm:flex-col sm:text-right "
                           >
-                            <span className="font-medium text-gray-900"></span>
+                            <span className="font-medium text-gray-900">{formatPrice(option.price / 100)}</span>
                           </RadioGroup.Description>
                         </RadioGroup.Option>
                       ))}
@@ -218,6 +220,19 @@ export default function DesignConfigurator({ configId, imageUrl, imageDimensions
             </div>
           </div>
         </ScrollArea>
+        <div className="w-full px-8 h-16 bg-white">
+          <div className="h-px w-full bg-zinc-200" />
+          <div className="w-full h-full flex justify-end items-center">
+            <div className="w-full flex gap-6 items-center">
+              <p className="font-medium whitespace-nowrap">
+                {formatPrice((BASE_PRICE + options.finish.price + options.material.price) / 100)}
+              </p>
+              <Button size="sm" className="w-full">
+                Continue <ArrowRight className="size-4 ml-1.5 inline" />
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
