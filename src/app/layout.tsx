@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={recursive.className}>
         <Navbar />
 
         <main className="flex grainy-light flex-col min-h-[calc(100vh-3.5rem-1px)]">
