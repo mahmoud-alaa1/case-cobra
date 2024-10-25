@@ -122,10 +122,8 @@ export default function DesignConfigurator({
         renderedDimensions.height
       );
       const base64 = canvas.toDataURL("image/png");
-      console.log(base64);
       const base64Data = base64.split(",")[1];
       const blob = base64ToBlob(base64Data, "image/png");
-      console.log(blob);
       const file = new File([blob], "phone-case.png", { type: "image/png" });
       await startUpload([file], { configId });
     } catch (error) {
@@ -140,9 +138,7 @@ export default function DesignConfigurator({
 
   function base64ToBlob(base64: string, type: string) {
     const byteCharacters = atob(base64);
-    console.log(byteCharacters);
     const byteNumbers = new Array(byteCharacters.length);
-    console.log(byteNumbers);
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
