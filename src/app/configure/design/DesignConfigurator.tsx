@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import NextImage from "next/image";
 
 import { Label } from "@/components/ui/label";
-import { COLORS, MODELS } from "@/validators/option-validator";
+import { COLORS, FINISHES, MATERIALS, MODELS } from "@/validators/option-validator";
 import { useState } from "react";
 import { Rnd } from "react-rnd";
 import {
@@ -32,9 +32,16 @@ interface DesignConfiguratorProps {
 }
 
 export default function DesignConfigurator({ configId, imageUrl, imageDimensions }: DesignConfiguratorProps) {
-  const [options, setOptions] = useState<{ color: (typeof COLORS)[number]; model: (typeof MODELS.options)[number] }>({
+  const [options, setOptions] = useState<{
+    color: (typeof COLORS)[number];
+    model: (typeof MODELS.options)[number];
+    material: (typeof MATERIALS.options)[number];
+    finish: (typeof FINISHES.options)[number];
+  }>({
     color: COLORS[0],
     model: MODELS.options[0],
+    material: MATERIALS.options[0],
+    finish: FINISHES.options[0],
   });
 
   return (
@@ -161,6 +168,17 @@ export default function DesignConfigurator({ configId, imageUrl, imageDimensions
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
+                {[MATERIALS, FINISHES].map(({ name, options: selectableOptions }) => (
+                  <RadioGroup
+                    key={name}
+                    value={options[name]}
+                    onChange={(val) => {
+                      setOptions((prev) => ({ ...prev, [name]: val }));
+                    }}
+                  >
+                    <Label>{name.slice(0, 1).toUpperCase() + name.slice(1)}</Label>
+                  </RadioGroup>
+                ))}
               </div>
             </div>
           </div>
