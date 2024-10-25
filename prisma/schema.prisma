@@ -17,18 +17,18 @@ enum PhoneModel{
   iphone15
 }
 
-enum CaseMaterial{
-  silicon
+enum CaseMaterial {
   polycarbonate
+  silicone
 }
 
-enum CaseFinish{
+enum CaseFinish {
   smooth
   textured
 }
 
 
-enum CaseColor{
+enum CaseColor {
   black
   blue
   rose
