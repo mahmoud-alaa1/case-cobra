@@ -60,6 +60,10 @@ model Order {
   status OrderStatus @default(awaiting_payment)
   shippingAddress ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
   shippingAddressId String?
+  billingAddress BilingAddress? @relation(fields: [billingAddressId], references: [id])
+  billingAddressId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 
@@ -71,7 +75,19 @@ model ShippingAddress {
   postalCode String
   country String
   state String?
-  phoneNuber String?
+  phoneNumber String?
+  orders Order[]
+}
+
+model BilingAddress {
+  id String @id @default(cuid())
+  name String
+  street String
+  city String
+  postalCode String
+  country String
+  state String?
+  phoneNumber String?
   orders Order[]
 }
 
