@@ -7,6 +7,7 @@ import useConfetti from "@/hooks/use-confetti";
 import { cn, formatPrice } from "@/lib/utils";
 import { COLORS, MODELS } from "@/validators/option-validator";
 import { Configuration } from "@prisma/client";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowRight, Check } from "lucide-react";
 import Confetti from "react-dom-confetti";
 
@@ -38,6 +39,11 @@ export default function DesignPreview({
   if (material === "polycarbonate")
     totalPrice += PRODUCT_PRICES.material.polycarbonate;
   if (finish === "textured") totalPrice += PRODUCT_PRICES.finish.textured;
+
+  const {} = useMutation({
+    mutationKey: ["get-checkout-session"],
+    mutationFn: async () => {},
+  });
 
   return (
     <>
@@ -120,7 +126,12 @@ export default function DesignPreview({
             </div>
 
             <div className="mt-8 flex justify-end pb-12">
-              <Button disabled={true} isLoading={true} loadingText="loading" className="px-4 sm:px-6 lg:px-8">
+              <Button
+                disabled={true}
+                isLoading={true}
+                loadingText="loading"
+                className="px-4 sm:px-6 lg:px-8"
+              >
                 Check out
                 <ArrowRight className="size-4 ml-1.5 inline" />
               </Button>
