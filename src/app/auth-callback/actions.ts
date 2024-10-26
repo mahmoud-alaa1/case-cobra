@@ -5,7 +5,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export const getAuthStatus = async () => {
   const { getUser } = getKindeServerSession();
-  const { id, email, given_name } = await getUser();
+  const { id, email } = await getUser();
   if (!id || !email) {
     throw new Error("Invalid User Data");
   }
@@ -16,8 +16,7 @@ export const getAuthStatus = async () => {
     await db.user.create({
       data: {
         id,
-        email: email!,
-        name: given_name!,
+        email,
       },
     });
   }
