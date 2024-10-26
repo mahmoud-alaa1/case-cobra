@@ -1,5 +1,10 @@
-import React from "react";
+import { Suspense } from "react";
+import ThankYou from "./ThankYou";
 
 export default function Page() {
-  return <div>Thank you!</div>;
+  return (
+    <Suspense>
+      <ThankYou />
+    </Suspense>
+  );
 }
