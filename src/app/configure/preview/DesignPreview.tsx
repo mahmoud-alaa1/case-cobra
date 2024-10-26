@@ -10,12 +10,19 @@ import { Configuration } from "@prisma/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowRight, Check } from "lucide-react";
 import Confetti from "react-dom-confetti";
+import { createCheckoutSession } from "./actions";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DesignPreview({
   configuration,
 }: {
   configuration: Configuration;
 }) {
+  const router = useRouter();
+
+  const { toast } = useToast();
+
   const showConfetti = useConfetti();
 
   const {
@@ -40,9 +47,24 @@ export default function DesignPreview({
     totalPrice += PRODUCT_PRICES.material.polycarbonate;
   if (finish === "textured") totalPrice += PRODUCT_PRICES.finish.textured;
 
-  const {} = useMutation({
+  const { mutate: createPaymentSession } = useMutation({
     mutationKey: ["get-checkout-session"],
-    mutationFn: async () => {},
+    mutationFn: createCheckoutSession,
+    onSuccess: ({ url }) => {
+      if (url) {
+        router.push(url);
+      } else {
+        throw new Error("Failed to create checkout session");
+      }
+    },
+    onError: (error) => {
+      toast({
+        title: "Something went wrong",
+        description:
+          "There was an error creating the checkout session. Please try again.",
+        variant: "destructive",
+      });
+    },
   });
 
   return (
