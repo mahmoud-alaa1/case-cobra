@@ -320,11 +320,11 @@ export default function DesignConfigurator({
                           <RadioGroup.Option
                             key={option.value}
                             value={option}
-                            className={({ active, checked }) =>
+                            className={({ checked, active }) =>
                               cn(
                                 "relative block cursor-pointer rounded-lg bg-white px-6 py-4 shadow-sm border-2 border-zinc-200 focus:outline-none ring-0 focus:ring-0 outline-none sm:flex sm:justify-between",
                                 {
-                                  "border-primary": checked || checked,
+                                  "border-primary": checked || active,
                                 }
                               )
                             }
