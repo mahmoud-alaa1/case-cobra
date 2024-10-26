@@ -7,13 +7,15 @@ import useConfetti from "@/hooks/use-confetti";
 import { cn, formatPrice } from "@/lib/utils";
 import { COLORS, MODELS } from "@/validators/option-validator";
 import { Configuration } from "@prisma/client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { ArrowRight, Check } from "lucide-react";
 import Confetti from "react-dom-confetti";
 import { createCheckoutSession } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { useState } from "react";
+import LoginModal from "@/components/LoginModal";
 export default function DesignPreview({
   configuration,
 }: {
@@ -23,7 +25,11 @@ export default function DesignPreview({
 
   const { toast } = useToast();
 
+  const { user } = useKindeBrowserClient();
+
   const showConfetti = useConfetti();
+
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
 
   const {
     color,
@@ -60,12 +66,23 @@ export default function DesignPreview({
     onError: (error) => {
       toast({
         title: "Something went wrong",
-        description:
-          "There was an error creating the checkout session. Please try again.",
+        description: error.message || "Please try again later",
+
         variant: "destructive",
       });
     },
   });
+
+  const handleCheckout = () => {
+    if (user) {
+      //Create Payment Session
+      createPaymentSession({ configId: configuration.id });
+    } else {
+      //need to log in
+      localStorage.setItem("configurationId", configuration.id);
+      setIsLoginModalOpen(true);
+    }
+  };
 
   return (
     <>
@@ -78,6 +95,7 @@ export default function DesignPreview({
           config={{ elementCount: 200, spread: 90 }}
         />
       </div>
+      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
       <div className="mt-10 grid grid-cols-1 text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
         <div className="sm:col-span-4 md:col-span-3 md:row-span-2 md:row-end-2">
           <Phone className={cn(`bg-${tw}`)} ImageSrc={croppedImageUrl!} />
@@ -148,12 +166,7 @@ export default function DesignPreview({
             </div>
 
             <div className="mt-8 flex justify-end pb-12">
-              <Button
-                onClick={() =>
-                  createPaymentSession({ configId: configuration.id })
-                }
-                className="px-4 sm:px-6 lg:px-8"
-              >
+              <Button onClick={handleCheckout} className="px-4 sm:px-6 lg:px-8">
                 Check out
                 <ArrowRight className="size-4 ml-1.5 inline" />
               </Button>
