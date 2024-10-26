@@ -9,9 +9,11 @@ export const getAuthStatus = async () => {
   if (!id || !email) {
     throw new Error("Invalid User Data");
   }
+  
   const existingUser = await db.user.findUnique({
     where: { id },
   });
+
   if (!existingUser) {
     await db.user.create({
       data: {
