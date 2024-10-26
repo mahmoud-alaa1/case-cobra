@@ -45,6 +45,8 @@ export const createCheckoutSession = async ({
       },
     });
   }
+
+  
   const product = await stripe.products.create({
     name: "Custom iPhone Case",
     images: [configuration.imageUrl],
@@ -71,5 +73,5 @@ export const createCheckoutSession = async ({
     ],
   });
 
-  return {url: stripeSession.url};
+  return { url: stripeSession.url };
 };

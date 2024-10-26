@@ -149,9 +149,9 @@ export default function DesignPreview({
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
-                disabled={true}
-                isLoading={true}
-                loadingText="loading"
+                onClick={() =>
+                  createPaymentSession({ configId: configuration.id })
+                }
                 className="px-4 sm:px-6 lg:px-8"
               >
                 Check out
