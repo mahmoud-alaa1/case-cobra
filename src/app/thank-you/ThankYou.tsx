@@ -71,6 +71,8 @@ export default function ThankYou() {
             </p>
           </div>
         </div>
+        <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl">
+        </div>
       </div>
     </div>
   );
