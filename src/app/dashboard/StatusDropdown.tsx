@@ -34,7 +34,12 @@ export default function StatusDropdown({
   const { mutate } = useMutation({
     mutationKey: ["update-order-status"],
     mutationFn: updateOrderStatusAction,
-    onSuccess: () => router.refresh(),
+    onSuccess: () => {
+      toast({
+        title: " Order is updated successfully",
+      });
+      router.refresh();
+    },
     onError: (error) => {
       toast({
         title: "Failed to update order status",
