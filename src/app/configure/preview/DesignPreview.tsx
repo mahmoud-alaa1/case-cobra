@@ -101,7 +101,7 @@ export default function DesignPreview({
           <Phone className={cn(`bg-${tw}`)} ImageSrc={croppedImageUrl!} />
         </div>
         <div className="mt-6 sm:col-span-9 sm:mt-0 md:row-end-1">
-          <h3 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h3 className="text-3xl font-bold tracking-tight mt-6 text-gray-900">
             Your {modelLabel} Case
           </h3>
           <div className="mt-3 flex items-center gap-1.5 text-base">
