@@ -26,6 +26,8 @@ export default async function Page() {
 
   const user = await getUser();
 
+  
+
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
   if (!user || user.email !== ADMIN_EMAIL) {
