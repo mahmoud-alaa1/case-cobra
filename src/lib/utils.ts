@@ -47,5 +47,6 @@ export function constructMetaData({
       images: [image],
     },
     icons,
+    metadataBase: new URL("https://case-cobra-ecru.vercel.app/"),
   };
 }
