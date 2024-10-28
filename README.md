@@ -3,8 +3,12 @@ _A Modern Fullstack E-Commerce Shop for Custom Phone Cases_
 
 CaseCobra is a powerful, fully-featured e-commerce platform designed to provide an elegant shopping experience for custom phone cases. Built on cutting-edge technologies, CaseCobra combines a sleek user interface with robust backend capabilities.
 
+> [!NOTE]
+> To checkout order use the following VISA card  Card Number: 4242 4242 4242 4242, MM/YY: 12/30, CVV/CVC: 123
+
 # Demo
 Experience the Live Demo: Check out CaseCobra in action [here](https://case-cobra-ecru.vercel.app/)
+
 ![image](https://github.com/user-attachments/assets/9ec8a565-909e-476a-bd1b-1acbab8726e9)
 
 # 🚀 Key Technologies
